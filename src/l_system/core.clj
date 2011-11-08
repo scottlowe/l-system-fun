@@ -25,7 +25,10 @@
    :rules      {\F "F[+F]F[-F]F"}
    :commands   {\F :forward
                 \+ :left
-                \- :right}
+                \- :right
+                \[ :push
+                \] :pop
+                }
    :angle       25.7})
 
 (def tree-f
@@ -35,5 +38,7 @@
                 \F "FF"}
    :commands   {\F :forward
                 \+ :left
-                \- :right}
+                \- :right
+                \[ :push
+                \] :pop}
    :angle       22.5})

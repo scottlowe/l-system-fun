@@ -28,18 +28,26 @@
                (assoc :angle
                       (operator (:angle pen) turn-angle)))))
 
+(defn save-position [p])
+
+(defn retrieve-position [])
+
 (defn interpret
   "Interprets L-system model constant as a 'Turtle' graphics command"
   [grammar constant]
   (let [command ((:commands grammar) constant)
         turn-angle (:angle grammar)]
+    (println (str "CONSTANT: " constant))
     (cond (= :forward command) (forward)
           (= :left    command) (turn + turn-angle)
-          (= :right   command) (turn - turn-angle))))
+          (= :right   command) (turn - turn-angle)
+          (= :push    command) (save-position pen)
+          (= :pop     command) (retrieve-position))))
 
 (defn plot-system [grammar n]
   (dorun
-    (map #(interpret grammar %) (grow grammar n))))
+    (map #(interpret grammar %)
+         (seq (grow grammar n)))))
 
 (defn- setup [position grammar n]
   (smooth)
@@ -52,11 +60,11 @@
   (stroke-weight 1.5)
   (plot-system grammar n))
 
-;(defapplet koch-curve-app
-;  :title "L-system Koch Curve"
-;  :setup #(do (setup {:x 12 :y 350} koch-curve 4))
-;  :size [600 480])
-;
+(defapplet tree-a-app
+ :title "Tree A"
+ :setup #(do (setup {:x 12 :y 350} tree-a 2))
+ :size [800 580])
+
 ;(defapplet sierpinski-app
 ;  :title "L-system Sierpinski Triangle"
 ;  :setup #(do (setup {:x 80 :y 234} sierpinski-triangle 6))
