@@ -1,9 +1,27 @@
-(ns l-system.core
-  "A Simple example of the iterative application of L-System grammars.
-   http://en.wikipedia.org/wiki/L-system")
+(ns l-system.core)
+
+(defprotocol StackOps
+  (push-stack [this x])
+  (pop-stack [this])
+  (top-stack [this])
+  (empty-stack? [this]))
+
+(defrecord Stack [elements]
+  StackOps
+  (push-stack [_ x]
+    (dosync (alter elements conj x)))
+  (pop-stack [_]
+    (let [fst (first @elements)]
+      (dosync (alter elements rest)) fst))
+  (top-stack [_]
+    (first @elements))
+  (empty-stack? [_]
+    (= () @elements)))
+
+(defn new-stack [elements] (new Stack elements))
 
 (defn apply-rules
-  "Apply a grammar's production rules to a sequence of characters"
+  "Applies production rules to a sequence of characters for a given grammer"
   [grammar pattern]
   (apply str
          (replace (:rules grammar) pattern)))
