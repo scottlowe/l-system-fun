@@ -37,7 +37,7 @@ To view graphical output of applets that plot using the constants (commands) of 
     l-system.display=> (run tree-f-app)
     l-system.display=> (stop tree-f-app)
 
-Other applets iclude the sierpinski triangle (sierpinski-app). Check src/display.clj for more applet definitions.
+Other applets include the sierpinski triangle (sierpinski-app). Check src/display.clj for more applet definitions.
 
 
 License

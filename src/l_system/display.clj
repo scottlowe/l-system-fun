@@ -6,15 +6,15 @@
         [rosado.processing.applet]))
 
 (defn- forward [turtle length]
-   (let [draw-line (fn [turtle length]
-                     (let [angle (:angle turtle)
-                           deg   (/ (Math/PI) 180)
-                           end-x (-> (Math/sin (* angle deg))
-                                     (* length)
-                                     (+ (:x turtle)))
-                           end-y (-> (Math/cos (* angle deg))
-                                     (* length)
-                                     (+ (:y turtle)))]
+  (let [draw-line (fn [turtle length]
+                    (let [angle (:angle turtle)
+                          deg   (/ (Math/PI) 180)
+                          end-x (-> (Math/sin (* angle deg))
+                                    (* length)
+                                    (+ (:x turtle)))
+                          end-y (-> (Math/cos (* angle deg))
+                                    (* length)
+                                    (+ (:y turtle)))]
                        (line (:x turtle) (:y turtle) end-x end-y)
                        {:x end-x :y end-y :angle angle}))]
   (swap! turtle draw-line length)))
@@ -60,6 +60,14 @@
   :setup #(do (init axial-tree-a {:origin [200 670]
                                   :n-productions 4
                                   :line-length 8
+                                  :start-angle 180})))
+
+(defapplet tree-d-app
+  :title "Axial Tree D"
+  :size [480 700]
+  :setup #(do (init axial-tree-d {:origin [240 700]
+                                  :n-productions 7
+                                  :line-length 2.7
                                   :start-angle 180})))
 
 (defapplet tree-f-app
