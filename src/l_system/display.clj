@@ -5,26 +5,25 @@
         [rosado.processing]
         [rosado.processing.applet]))
 
-(defn- draw-line [turtle length]
-  (let [angle (:angle turtle)
-        deg   (/ (Math/PI) 180)
-        end-x (-> (Math/sin (* angle deg))
-                  (* length)
-                  (+ (:x turtle)))
-        end-y (-> (Math/cos (* angle deg))
-                  (* length)
-                  (+ (:y turtle)))]
-    (line (:x turtle) (:y turtle) end-x end-y)
-    {:x end-x :y end-y :angle angle}))
-
 (defn- forward [turtle length]
-  (swap! turtle draw-line length))
+   (let [draw-line (fn [turtle length]
+                     (let [angle (:angle turtle)
+                           deg   (/ (Math/PI) 180)
+                           end-x (-> (Math/sin (* angle deg))
+                                     (* length)
+                                     (+ (:x turtle)))
+                           end-y (-> (Math/cos (* angle deg))
+                                     (* length)
+                                     (+ (:y turtle)))]
+                       (line (:x turtle) (:y turtle) end-x end-y)
+                       {:x end-x :y end-y :angle angle}))]
+  (swap! turtle draw-line length)))
 
 (defn- turn [turtle direction angle]
-  (letfn [(change-course [turtle direction angle]
-            (assoc turtle :angle
-              (direction (:angle turtle) angle)))]
-    (swap! turtle change-course direction angle)))
+  (let [change-course (fn [turtle direction angle]
+                        (assoc turtle :angle
+                        (direction (:angle turtle) angle)))]
+  (swap! turtle change-course direction angle)))
 
 (defn plot-system [grammar params]
   (let [turtle (atom {:x (first (:origin params))
