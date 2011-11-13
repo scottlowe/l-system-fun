@@ -7,7 +7,12 @@ To improve my Clojure skills, I decided to tackle a small self-contained problem
 I was surprised to discover how little code was required to satisfy my goal of generating and plotting
 [L-system] data.
 
-As a learning excercise, the code is probably of little practical use to you, unless you are interested in looking at Clojure code.
+More specifically, I wanted to generate axial trees, because they are beautiful to look at, but also
+becuase it required implementation of a Bracketed OL-systems, since the definition of tree L-systems does not specify the
+data structure for representing axial trees.
+
+
+The code is probably of little practical re-use value, but you are free to do what you like with it.
 
 Usage
 -----
@@ -20,17 +25,21 @@ If you have Leiningen installed, you probably already know the drill:
 Once in the REPL you can generate an L-system pattern by specfiying the
 grammar name and the nth generation that you want:
 
-    l-system.display=> (grow dragon-curve 3)
-    [:F :X :+ :Y :F :+ :F :X :- :Y :F :+ :F :X :+ :Y :F :- :F :X :- :Y :F]
+    l-system.display=> (generate dragon-curve 5)
+    "FX+YF+FX-YF+FX+YF-FX-YF+FX+YF+FX-YF-FX+YF-FX-YF+FX+YF+FX-YF+FX+YF-FX-YF-FX+YF+FX-YF-FX+YF-FX-YF"
+    
+... or for an axial tree:
+
+    l-system.display=> (generate axial-tree-f 2)
+    "FF-[[F-[[X]+X]+F[+FX]-X]+F-[[X]+X]+F[+FX]-X]+FF[+FFF-[[X]+X]+F[+FX]-X]-F-[[X]+X]+F[+FX]-X"
 
 To view graphical output of applets that plot using the constants (commands) of these L-systems:
 
-    (run dragon-curve-app)
-    (stop dragon-curve-app)
+    l-system.display=> (run tree-f-app)
+    l-system.display=> (stop tree-f-app)
 
-Other applets plot the koch curve (koch-curve-app) and sierpinski triangle (sierpinski-app).
-The applets are not parameterized but of fixed iteration; such flexibility is beyond the intentions
-of this code excercise... but of course you can open up the code and directly edit the applet definitions.
+Other applets iclude the sierpinski triangle (sierpinski-app). Check src/display.clj for more applet definitions.
+
 
 License
 -------
