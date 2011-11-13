@@ -29,6 +29,13 @@
                    :constants #{\F \+ \- \[ \]}
                    :commands  tree-commands })
 
+(def axial-tree-d {:start     [\X]
+                   :rules     {\X "F[+X]F[-X]+X"
+                               \F "FF"}
+                   :angle     20
+                   :constants #{\F \+ \- \[ \]}
+                   :commands  tree-commands})
+
 (def axial-tree-f {:start     [\X]
                    :rules     {\X "F-[[X]+X]+F[+FX]-X"
                                \F "FF"}
