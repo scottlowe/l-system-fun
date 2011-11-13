@@ -14,6 +14,30 @@
       (partial apply-rules grammar) (:start grammar))
     n))
 
+(defn line-end [turtle length]
+  (let [angle (:angle turtle)
+        deg   (/ (Math/PI) 180)
+        end-x (-> (Math/sin (* angle deg))
+                (* length)
+                (+ (:x turtle)))
+        end-y (-> (Math/cos (* angle deg))
+                (* length)
+                (+ (:y turtle)))]
+    ;(println (str "[" (:x turtle) " " (:y turtle) " " end-x " " end-y "]"))
+    {:x end-x :y end-y :angle angle}))
+
+(defn make-coords [rules grammar depth]
+  (when (seq rules)
+    (let [command ((:commands grammar) (first rules))]
+      (do (println command ", depth: " depth)
+      (cond
+        (= :push command) (make-coords (rest rules)
+                                        grammar
+                                       (inc depth))
+        (= :pop  command) (make-coords (rest rules)
+                                        grammar
+                                       (dec depth))
+        :else (make-coords (rest rules) grammar depth))))))
 
 ;; grammar definitions
 
