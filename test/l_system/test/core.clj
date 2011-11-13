@@ -3,8 +3,8 @@
         [clojure.test]))
 
 
-(deftest grow-tree-a-test
+(deftest generate-tree-a-test
   (is (= "F[+F]F[-F]F"
-         (grow tree-a 1)))
+         (generate tree-a 1)))
   (is (= "F[+F]F[-F]F[+F[+F]F[-F]F]F[+F]F[-F]F[-F[+F]F[-F]F]F[+F]F[-F]F"
-         (grow tree-a 2))))
+         (generate tree-a 2))))

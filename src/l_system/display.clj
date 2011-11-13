@@ -5,10 +5,7 @@
         [rosado.processing]
         [rosado.processing.applet]))
 
-(def line-length 8)
-(def stack (new-stack (ref ())))
-
-(defn draw-line [turtle length]
+(defn- draw-line [turtle length]
   (let [angle (:angle turtle)
         deg   (/ (Math/PI) 180)
         end-x (-> (Math/sin (* angle deg))
@@ -20,52 +17,54 @@
     (line (:x turtle) (:y turtle) end-x end-y)
     {:x end-x :y end-y :angle angle}))
 
-(defn- forward [turtle]
-  (swap! turtle draw-line line-length))
+(defn- forward [turtle length]
+  (swap! turtle draw-line length))
 
-(defn new-angle [t o a]
-  (let [x (o (:angle t) a)]
-    (assoc t :angle x)))
-
-(defn- turn [turtle operator turn-angle]
-  (swap! turtle new-angle operator turn-angle))
-
-(defn interpret
-  "Interprets L-system model constant as a 'Turtle' graphics command"
-  [turtle grammar constant]
-  (let [angle (:angle grammar)]
-    (cond (= \F constant) (forward turtle)
-          (= \+ constant) (turn turtle + angle)
-          (= \- constant) (turn turtle - angle)
-          (= \[ constant) (push-stack stack @turtle)
-          (= \] constant) (swap! turtle #(do % (pop-stack stack))))))
+(defn- turn [turtle direction angle]
+  (letfn [(change-course [turtle direction angle]
+            (assoc turtle :angle
+              (direction (:angle turtle) angle)))]
+    (swap! turtle change-course direction angle)))
 
 (defn plot-system [grammar params]
-  (let [turtle (atom {:x (:start-x params)
-                      :y (:start-y params)
-                      :angle 180})]
+  (let [turtle (atom {:x (first (:origin params))
+                      :y (second (:origin params))
+                      :angle 180})
+        angle  (:angle grammar)
+        length (:line-length params)
+        stack  (new-stack (ref ()))
+        dispatch (fn [constant]
+                   (cond (= \F constant) (forward turtle length)
+                         (= \+ constant) (turn turtle + angle)
+                         (= \- constant) (turn turtle - angle)
+                         (= \[ constant) (push-stack stack @turtle)
+                         (= \] constant) (swap! turtle #(do % (pop-stack stack)))))]
     (dorun
-      (map #(interpret turtle grammar %)
-           (seq (grow grammar (:iterations params)))))))
+      (map dispatch
+           (seq (generate grammar (:n-productions params)))))))
 
-(defn- setup [grammar params]
+(defn- init [grammar params]
   (smooth)
   (no-stroke)
   (fill 226)
   (framerate 10)
   (background-float 255)
-  (stroke-float 230 0 0)
-  (stroke-weight 1.5)
+  (stroke-float 0 160 0)
+  (stroke-weight 1.4)
   (plot-system grammar params))
 
 (defapplet tree-a-app
  :title "Tree A"
- :setup #(do (setup tree-a {:start-x 450 :start-y 800 :iterations 5}))
+ :setup #(do (init tree-a {:origin [450 800]
+                           :n-productions 4
+                           :line-length 8}))
  :size [900 800])
 
 (defapplet tree-f-app
  :title "Tree F"
- :setup #(do (setup tree-f {:start-x 450 :start-y 800 :iterations 5}))
+ :setup #(do (init tree-f {:origin [450 800]
+                           :n-productions 5
+                           :line-length 9}))
  :size [900 800])
 
 

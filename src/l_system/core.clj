@@ -26,7 +26,7 @@
   (apply str
          (replace (:rules grammar) pattern)))
 
-(defn grow
+(defn generate
   "Generate the nth generation for a grammar"
   [grammar n]
   (nth
