@@ -7,10 +7,9 @@ To improve my Clojure skills, I decided to tackle a small self-contained problem
 I was surprised to discover how little code was required to satisfy my goal of generating and plotting
 [L-system] data.
 
-More specifically, I wanted to generate axial trees, because they are beautiful to look at, but also
-becuase it required implementation of a Bracketed OL-systems, since the definition of tree L-systems does not specify the
-data structure for representing axial trees.
-
+More specifically, I wanted to generate axial trees, mostly because they are beautiful to look at, but also
+because it requires the additional step of implementing a Bracketed OL-system, since the definition of tree L-systems
+does not specify the data structure for representing axial trees.
 
 The code is probably of little practical re-use value, but you are free to do what you like with it.
 
