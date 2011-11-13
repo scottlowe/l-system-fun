@@ -33,11 +33,12 @@
         length (:line-length params)
         stack  (new-stack (ref ()))
         dispatch (fn [constant]
-                   (cond (= \F constant) (forward turtle length)
-                         (= \+ constant) (turn turtle + angle)
-                         (= \- constant) (turn turtle - angle)
-                         (= \[ constant) (push-stack stack @turtle)
-                         (= \] constant) (swap! turtle #(do % (pop-stack stack)))))]
+                   (cond
+                     (= \F constant) (forward turtle length)
+                     (= \+ constant) (turn turtle + angle)
+                     (= \- constant) (turn turtle - angle)
+                     (= \[ constant) (push-stack stack @turtle)
+                     (= \] constant) (swap! turtle #(do % (pop-stack stack)))))]
     (dorun
       (map dispatch
            (seq (generate grammar (:n-productions params)))))))
@@ -53,18 +54,18 @@
   (plot-system grammar params))
 
 (defapplet tree-a-app
- :title "Tree A"
- :setup #(do (init tree-a {:origin [450 800]
+ :title "Axial Tree A"
+ :setup #(do (init tree-a {:origin [300 800]
                            :n-productions 4
                            :line-length 8}))
- :size [900 800])
+ :size [600 800])
 
 (defapplet tree-f-app
- :title "Tree F"
- :setup #(do (init tree-f {:origin [450 800]
+ :title "Axial Tree F"
+ :setup #(do (init tree-f {:origin [370 800]
                            :n-productions 5
                            :line-length 9}))
- :size [900 800])
+ :size [650 800])
 
 
 ;(defapplet sierpinski-app
