@@ -76,6 +76,14 @@
                             :line-length 2.7
                             :start-angle 180})))
 
+(defapplet tree-d-app
+  :title "Axial Tree D"
+  :size [480 700]
+  :setup #(do (init axial-tree-d {:origin [240 700]
+                                  :n-productions 7
+                                  :line-length 2.7
+                                  :start-angle 180})))
+
 (defapplet tree-f-app
            :title "Axial Tree F"
            :size [600 700]

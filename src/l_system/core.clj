@@ -15,6 +15,7 @@
       (partial apply-rules grammar) (:start grammar))
     n))
 
+
 ;; mutable stack implementation
 
 (defprotocol IStack
