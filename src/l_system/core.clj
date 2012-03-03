@@ -13,7 +13,7 @@
   (apply str
          (replace (:rules grammar) pattern)))
 
-(defn generate
+(defn gen-commands
   [grammar n]
   (nth
     (iterate
@@ -31,37 +31,40 @@
             (* length)
             (+ (:y turtle)))}))
 
- (defn- turn [turtle direction angle]
-   (assoc turtle :angle
+(defn- turn [turtle direction angle]
+  (assoc turtle :angle
          (direction (:angle turtle) angle)))
 
-(defn dispatch-cmd [turtle cmd stack lines]
+(defn exec-cmd [turtle cmd stack lines]
   (let [angle  (:angle *grammar*)
         length (:line-length *params*)]
     (cond
-      (= :left cmd)    [(turn turtle + 25.7) stack lines]
+      (= :left cmd)    [(turn turtle + angle) stack lines]
       (= :push cmd)    [turtle (cons turtle stack) lines]
       (= :pop cmd)     [(first stack) (rest stack) lines]
-      (= :right cmd)   [(turn turtle - 25.7) stack lines]
+      (= :right cmd)   [(turn turtle - angle) stack lines]
       (= :forward cmd) (do
                          (let [new-turtle (line-end turtle length)
                                {x1 :x y1 :y} turtle
                                {x2 :x y2 :y} new-turtle
                                new-lines (conj lines [x1 y1 x2 y2])]
-                           [new-turtle stack new-lines])))))
+                           [new-turtle stack new-lines]))
+      :else [turtle stack lines])))
 
 (defn calc-moves [start-pos commands]
-  ((fn calc-lines [turtle cmds stack line-coords]
+  (loop [turtle start-pos
+         cmds commands
+         stack '()
+         line-coords []]
     (if (empty? cmds)
       line-coords
       (let [[new-turtle
              new-stack
-             new-lines] (dispatch-cmd turtle
-                                      ((:cmd-map *grammar*) (first cmds))
-                                      stack
-                                      line-coords)]
-        (recur new-turtle (rest cmds) new-stack new-lines))))
-    start-pos commands '() []))
+             new-lines] (exec-cmd turtle
+                                  ((:cmd-map *grammar*) (first cmds))
+                                  stack
+                                  line-coords)]
+        (recur new-turtle (rest cmds) new-stack new-lines)))))
 
 (defn gen-coords [grammar params]
   (binding [*grammar* grammar
@@ -70,4 +73,4 @@
                   :y (second (:origin params))
                   :angle (:start-angle params)}]
       (calc-moves turtle
-                  (generate grammar (:n-productions params))))))
+                  (gen-commands grammar (:n-productions params))))))
