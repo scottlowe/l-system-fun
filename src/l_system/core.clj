@@ -8,13 +8,11 @@
                          :line-length 7
                          :start-angle 180})
 
-(defn apply-rules
-  [grammar pattern]
+(defn apply-rules [grammar pattern]
   (apply str
          (replace (:rules grammar) pattern)))
 
-(defn gen-commands
-  [grammar n]
+(defn gen-commands [grammar n]
   (nth
     (iterate
       (partial apply-rules grammar) (:start grammar))
