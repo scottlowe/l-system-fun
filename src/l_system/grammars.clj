@@ -25,6 +25,13 @@
                    :constants #{\F \+ \- \[ \]}
                    :cmd-map   tree-cmd-map})
 
+(def axial-tree-e {:start     [\X]
+                   :rules     {\X "F[+X][-X]FX"
+                               \F "FF"}
+                   :angle     25.7
+                   :constants #{\F \+ \- \[ \]}
+                   :cmd-map   tree-cmd-map})
+
 (def axial-tree-f {:start     [\X]
                    :rules     {\X "F-[[X]+X]+F[+FX]-X"
                                \F "FF"}

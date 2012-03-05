@@ -52,6 +52,17 @@
                                     :line-length 2.7
                                     :start-angle 180}))))
 
+(defapplet tree-e-app
+           :title "Axial Tree E"
+           :size [480 700]
+           :setup #(do
+                     (init-applet
+                       (gen-coords axial-tree-e
+                                   {:origin [240 700]
+                                    :n-productions 7
+                                    :line-length 2.7
+                                    :start-angle 180}))))
+
 (defapplet tree-f-app
            :title "Axial Tree F"
            :size [600 700]
