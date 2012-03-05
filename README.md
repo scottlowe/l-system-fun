@@ -24,12 +24,12 @@ If you have Leiningen installed, you probably already know the drill:
 Once in the REPL you can generate an L-system pattern by specfiying the
 grammar name and the nth generation that you want:
 
-    l-system.display=> (generate dragon-curve 5)
+    l-system.display=> (gen-commands dragon-curve 5)
     "FX+YF+FX-YF+FX+YF-FX-YF+FX+YF+FX-YF-FX+YF-FX-YF+FX+YF+FX-YF+FX+YF-FX-YF-FX+YF+FX-YF-FX+YF-FX-YF"
     
 ... or for an axial tree:
 
-    l-system.display=> (generate axial-tree-f 2)
+    l-system.display=> (gen-commands axial-tree-f 2)
     "FF-[[F-[[X]+X]+F[+FX]-X]+F-[[X]+X]+F[+FX]-X]+FF[+FFF-[[X]+X]+F[+FX]-X]-F-[[X]+X]+F[+FX]-X"
 
 To view graphical output of applets that plot using the constants (commands) of these L-systems:
@@ -37,7 +37,7 @@ To view graphical output of applets that plot using the constants (commands) of 
     l-system.display=> (run tree-f-app)
     l-system.display=> (stop tree-f-app)
 
-Other applets include the sierpinski triangle (sierpinski-app). Check src/display.clj for more applet definitions.
+Other applets include the sierpinski triangle (sierpinski-app). Check src/l_system/display.clj for more applet definitions.
 
 
 License
