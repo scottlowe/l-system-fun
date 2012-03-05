@@ -11,6 +11,8 @@ More specifically, I wanted to generate axial trees, mostly because they are bea
 because it requires the additional step of implementing a Bracketed OL-system, since the definition of tree L-systems
 does not specify the data structure for representing axial trees.
 
+I've blogged about this code here: [http://www.scottlowe.eu/blog/2012/03/04/l-system-axial-trees-with-clojure/](http://www.scottlowe.eu/blog/2012/03/04/l-system-axial-trees-with-clojure/)
+
 The code is probably of little practical re-use value, but you are free to do what you like with it.
 
 Usage
