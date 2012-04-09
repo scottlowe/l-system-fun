@@ -36,10 +36,9 @@ grammar name and the nth generation that you want:
 
 To view graphical output of applets that plot using the constants (commands) of these L-systems:
 
-    l-system.display=> (run tree-f-app)
-    l-system.display=> (stop tree-f-app)
+    l-system.display=> (display tree-f-applet)
 
-Other applets include the sierpinski triangle (sierpinski-app). Check src/l_system/display.clj for more applet definitions.
+Other applets include the dragon-curve (display dragon-applet). Check src/l_system/display.clj for more applet definitions.
 
 
 License
