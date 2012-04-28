@@ -1,5 +1,5 @@
-(defproject l-system-fun "0.8.0"
+(defproject l-system-fun "0.9.0"
   :description "Simple L-system implementation for Clojure learning"
-  :dependencies [[org.clojure/clojure "1.3.0"]
-                 [quil "1.0.0"]]
+  :dependencies [[org.clojure/clojure "1.4.0"]
+                 [quil "1.3.0"]]
   :main l-system.display)
