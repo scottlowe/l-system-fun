@@ -4,7 +4,7 @@
   (:use [l-system.core]
         [l-system.grammars]
         [quil.core]
-        [quil.applet :only [applet-stop applet-start applet]]))
+        [quil.applet :only [applet]]))
 
 (defn plot-system [coordinates]
   (dorun
