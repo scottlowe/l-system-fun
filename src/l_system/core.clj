@@ -3,10 +3,10 @@
 
 (def ^:dynamic *grammar* axial-tree-a)
 
-(def ^:dynamic *environment* {:origin [200 200]
-                              :n-productions 4
-                              :line-length 7
-                              :start-angle 180})
+(def ^:dynamic *env* {:origin [200 200]
+                      :n-productions 4
+                      :line-length 7
+                      :start-angle 180})
 
 (defn apply-rules [grammar pattern]
   (apply str
@@ -30,41 +30,37 @@
             (+ (:y turtle)))}))
 
 (defn- turn [turtle direction angle]
-  (assoc turtle :angle
+  (assoc turtle
+         :angle
          (direction (:angle turtle) angle)))
 
-(defn- exec-cmd [state command]
-  "For a given command and state, returns a new state consisting of a turtle
-  position, line drawing coordinates & a FIFO stack of turtle positions"
+(defn- exec-cmd [turtle command]
+  "Returns a new turtle map consisting of a current turtle position, a
+  line drawing coordinates & a FIFO stack of 'paused' turtle positions"
   (let [angle (:angle *grammar*)
-        length (:line-length *environment*)
+        length (:line-length *env*)
         cmd ((:cmd-map *grammar*) command)
-        {turtle :turtle stack :stack} state]
+        {current-pos :current-pos stack :stack} turtle]
     (cond
-      (= :left cmd)    (assoc state :turtle (turn turtle + angle))
-      (= :push cmd)    (assoc state :stack (cons turtle stack))
-      (= :pop cmd)     (assoc state :turtle (first stack) :stack (rest stack))
-      (= :right cmd)   (assoc state :turtle (turn turtle - angle))
-      (= :forward cmd) (let [new-turtle (new-position turtle length)
-                             {x1 :x y1 :y} turtle
+      (= :left cmd)    (assoc turtle :current-pos (turn current-pos + angle))
+      (= :push cmd)    (assoc turtle :stack (cons current-pos stack))
+      (= :pop cmd)     (assoc turtle :current-pos (first stack) :stack (rest stack))
+      (= :right cmd)   (assoc turtle :current-pos (turn current-pos - angle))
+      (= :forward cmd) (let [new-turtle (new-position current-pos length)
+                             {x1 :x y1 :y} current-pos
                              {x2 :x y2 :y} new-turtle
-                             new-lines (conj (:lines state) [x1 y1 x2 y2])]
-                         (assoc state :turtle new-turtle :lines new-lines))
-      :else state)))
+                             new-lines (conj (:lines turtle) [x1 y1 x2 y2])]
+                         (assoc turtle :current-pos new-turtle :lines new-lines))
+      :else turtle)))
 
-(defn- calc-moves [turtle-start commands]
-  "Calculates line drawing coordinates for a collection of l-system commands"
-  (let [state {:turtle turtle-start :stack '() :lines []}]
-    (:lines
-      (reduce exec-cmd state commands))))
-
-(defn gen-coords [grammar environment]
-  "Generates drawing coordinates for an l-system grammar and start conditions"
+(defn gen-coords [grammar env]
+  "Generates line drawing coordinates for an l-system grammar & start environment"
   (binding [*grammar* grammar
-            *environment*  environment]
-    (let [turtle {:x (first (:origin environment))
-                  :y (second (:origin environment))
-                  :angle (:start-angle environment)}]
-      (calc-moves turtle
-                  (gen-commands grammar
-                                (:n-productions environment))))))
+            *env*  env]
+    (let [origin {:x (first (:origin env))
+                  :y (second (:origin env))
+                  :angle (:start-angle env)}
+          turtle {:current-pos origin :stack '() :lines []}
+          commands (gen-commands grammar (:n-productions env))]
+      (:lines
+        (reduce exec-cmd turtle commands)))))
