@@ -1,7 +1,7 @@
 (ns l-system.display
-  "Display generated L-system data using a sequence of [x1 y1 x2 y2] coordinates.
+  "Display L-system data using a sequence of [x1 y1 x2 y2] coordinates.
    Uses Processing http://processing.org/"
-  (:use [l-system.core]
+  (:use [l-system.core :only [gen-coords]]
         [l-system.grammars]
         [quil.core]
         [quil.applet :only [applet]]))
