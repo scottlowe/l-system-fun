@@ -41,17 +41,17 @@
         length (:line-length *env*)
         cmd ((:cmd-map *grammar*) command)
         {current-pos :current-pos stack :stack} turtle]
-    (cond
-      (= :left cmd)    (assoc turtle :current-pos (turn current-pos + angle))
-      (= :push cmd)    (assoc turtle :stack (cons current-pos stack))
-      (= :pop cmd)     (assoc turtle :current-pos (first stack) :stack (rest stack))
-      (= :right cmd)   (assoc turtle :current-pos (turn current-pos - angle))
-      (= :forward cmd) (let [new-turtle (new-position current-pos length)
+    (condp = cmd
+      :left    (assoc turtle :current-pos (turn current-pos + angle))
+      :push    (assoc turtle :stack (cons current-pos stack))
+      :pop     (assoc turtle :current-pos (first stack) :stack (rest stack))
+      :right   (assoc turtle :current-pos (turn current-pos - angle))
+      :forward (let [new-turtle (new-position current-pos length)
                              {x1 :x y1 :y} current-pos
                              {x2 :x y2 :y} new-turtle
                              new-lines (conj (:lines turtle) [x1 y1 x2 y2])]
                          (assoc turtle :current-pos new-turtle :lines new-lines))
-      :else turtle)))
+      turtle)))
 
 (defn gen-coords [grammar env]
   "Generates line drawing coordinates for an l-system grammar & start environment"
