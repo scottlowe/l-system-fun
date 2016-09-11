@@ -85,6 +85,7 @@ I chose to represent the rules like this with a simple hash map:
                                       \+ :left
                                       \- :right}})
 ```
+
 Note that there is a second level map that translates characters to
 commands. This extra level of indirection is necessary because some rule sets have multiple characters mapping to a single command.
 
@@ -129,7 +130,7 @@ This is achieved by including bracket characters in the rules. `[` Means 'push t
 
 Here's an axial tree described with bracketed rules:
 
-```clojure A map of rules for an axial tree
+```clojure
 (def axial-tree-a {:start     [\F]
                    :rules     {\F "F[+F]F[-F]F"}
                    :angle     25.7
@@ -144,7 +145,7 @@ Here's an axial tree described with bracketed rules:
 It's easy to see how the sequence of characters in the grammar above e.g. `F[+F]F[-F]F` could be
 sequentially applied (replaced), and it's pretty trivial:
 
-```clojure Using pattern replacement to generate strings
+```clojure
 (defn apply-rules [grammar pattern]
   (apply str
          (replace (:rules grammar) pattern)))
