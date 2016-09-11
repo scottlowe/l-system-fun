@@ -5,13 +5,13 @@ What is it?
 ----------
 To improve my Clojure skills, I decided to tackle a small self-contained problem with results that are quick and fun.
 
+I found a Wikipedia article about **L-systems (Lindenmayer Systems)** and was immediately attracted to the images of patterns that mimicked the growth processes of plants. This inspired me to write some code to generate code these systems and their branching structures.
+
 More specifically, I wanted to generate axial trees, mostly because they are beautiful to look at, but also because it requires the additional step of implementing a Bracketed OL-system, since the definition of tree L-systems does not specify the data structure for representing axial trees.
 
 I was surprised to discover how little code was required to satisfy my goal of generating and plotting [L-system] data.
 
 The code is probably of little practical re-use value, but you are free to do what you like with it.
-
-I found a Wikipedia article about **L-systems (Lindenmayer Systems)** and was immediately attracted to the images of patterns that mimicked the growth processes of plants. This inspired me to write some code to generate code to generate these systems and their branching structures.
 
 Usage
 -----
