@@ -46,7 +46,7 @@ Discussion
 
 L-systems were originally developed as a mathematical theory of plant development. They are based upon a disarmingly simple idea that can generate an incredibly diverse range of fascinating and extremely intricate patterns.
 
-![Axial Tree E](https://raw.githubusercontent.com/scottlowe/l-system-fun/img/axial-tree-e.png)
+![Axial Tree E](img/axial-tree-e.png)
 
 L-systems are [Rewriting Systems](http://en.wikipedia.org/wiki/Rewriting_system). In this case the rewriting takes the following form: characters in a sequence of characters are replaced
 by other characters, according to a simple set of replacement rules. The resulting string of characters can be interpreted and used as drawing commands for a
@@ -117,7 +117,7 @@ Here's some successive productions for the Dragon Curve:
 
 7 productions of the Dragon curve grammar will produce instructions that can be translated to commands that draw this:
 
-![Dragon Curve](https://raw.githubusercontent.com/scottlowe/l-system-fun/img/dragon-curve.png)
+![Dragon Curve](img/dragon-curve.png)
 
 I've use the [Processing](http://processing.org/) library to render the drawing. That's one of the great value propositions of Clojure - Java interop and access to the entire world of Java libraries
 without having to write Java. It's trivial to use the library directly, but there's also a nice Clojure wrapper around it called [Quil](https://github.com/quil/quil), which offers a sweeter, more idiomatically _Clojure_ API.
@@ -163,13 +163,13 @@ we can iterate over them and dispatch each command until there are none left.
 
 The outputs were rather pleasing:
 
-![Axial Tree 'D'](https://raw.githubusercontent.com/scottlowe/l-system-fun/img/axial-tree-d.png)
+![Axial Tree 'D'](img/axial-tree-d.png)
 
-![Axial Tree 'F'](https://raw.githubusercontent.com/scottlowe/l-system-fun/img/axial-tree-f.png)
+![Axial Tree 'F'](img/axial-tree-f.png)
 
 I'm not entirely convinced this one looks natural, but the windswept look is cool:
 
-![Axial Tree 'C'](https://raw.githubusercontent.com/scottlowe/l-system-fun/img/axial-tree-c.png)
+![Axial Tree 'C'](img/axial-tree-c.png)
 
 
 License
