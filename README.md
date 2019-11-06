@@ -42,7 +42,7 @@ Other applets include the dragon-curve (display dragon-applet). Check src/l_syst
 Discussion
 ----------
 
-###L-systems
+### L-systems
 
 L-systems were originally developed as a mathematical theory of plant development. They are based upon a disarmingly simple idea that can generate an incredibly diverse range of fascinating and extremely intricate patterns.
 
@@ -92,7 +92,7 @@ commands. This extra level of indirection is necessary because some rule sets ha
 I'd planned to use [keywords](http://clojure.org/data_structures#toc8) for all the map keys, however, it turns out that whilst the Clojure reader will allow `:A`, `:B` or `:+`, it does not presently allow `:[` or `:]`. Later, it transpired that it's better to use characters anyway, since they are each   returned when the pattern string
 is seq'ed.
 
-Clojure's keywords are similar to Ruby's symbols, and a single character is represented by a backslash preceding the character symbol, e.g. `\F` or `\A`.
+Clojure's keywords are similar to Ruby's symbols. In clojure, a single character is represented by a backslash preceding the character symbol, e.g. `\F` or `\A`.
 
 The strings grow rapidly with each successive production (generation) 'n'. Output from my REPL:
 
